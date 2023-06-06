@@ -127,11 +127,19 @@ const Chat = () => {
     return (
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
-                <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-                <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
+                {/* <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} /> */}
+                {/* <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} /> */}
             </div>
+
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
+                    {/* <div className=""> */}
+                    <div className={styles.headDialog1}>
+                        <nav className={styles.DialogTest}>
+                            <h2 className={styles.DialogFont}>Dialog</h2>Hi, I am Eve. Your AI Assitant.
+                        </nav>
+                    </div>
+                    {/* </div> */}
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
@@ -178,14 +186,26 @@ const Chat = () => {
                         </div>
                     )}
 
+                    <div className={styles.center100}>
+                        <div className={styles.questioncenter100}>
+                            <nav className={styles.navquestioncenter100}>
+                                <h2 className={styles.headquestioncenter100}>Question</h2>
+                            </nav>
+                        </div>
+                    </div>
+
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                            placeholder={isLoading ? "Waiting for response..." : "Type your questions here."}
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
+                    
                         />
                     </div>
+                </div>
+                <div className={styles.footer}>
+                    <p>© 2023 TechUnity, Inc. All Rights Reserved.</p>
                 </div>
 
                 {answers.length > 0 && activeAnalysisPanelTab && (

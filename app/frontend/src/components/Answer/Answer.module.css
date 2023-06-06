@@ -1,15 +1,44 @@
 .answerContainer {
-    padding: 20px;
-    background: rgb(249, 249, 249);
-    border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
-    outline: transparent solid 1px;
+    display: flex;
+    font-size: smaller;
+    position: relative;
+    background: #a2e3c4;
+    padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+    color: #000;
+    animation: fadein 0.5s;
+    font-weight: 400;
+    border-radius: 1.25rem;
+    width: 100%;
+    margin-left: 15px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.answerContainer:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -10px; /* Adjust this value to move the pointer horizontally */
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: #a2e3c4; /* This should be the same color as the background */
+    border-left: 0;
+    margin-top: -10px; /* Adjust this value to move the pointer vertically */
 }
 
 .answerLogo {
     font-size: 28px;
 }
 
+.boticon {
+    margin-right: 3.25rem;
+    border-radius: 45%;
+    background-color: #edf5ed;
+    height: 60px;
+    width: 60px;
+    border: "2px solid #000";
+    padding: 0.25rem;
+}
 .answerText {
     font-size: 16px;
     font-weight: 400;
@@ -108,6 +137,7 @@ sup {
 }
 
 .retryButton {
+    width: -moz-fit-content;
     width: fit-content;
 }
 

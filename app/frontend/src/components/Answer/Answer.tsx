@@ -35,9 +35,16 @@ export const Answer = ({
         <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between">
             <Stack.Item>
                 <Stack horizontal horizontalAlign="space-between">
-                    <AnswerIcon />
+                    {/* <AnswerIcon /> */}
                     <div>
-                        <IconButton
+                    <img
+                          src="/Wall-E.png"
+                          alt="AI"
+                          width="40"
+                          height="40"
+                          className={styles.boticon }
+                        />
+                        {/* <IconButton
                             style={{ color: "black" }}
                             iconProps={{ iconName: "Lightbulb" }}
                             title="Show thought process"
@@ -52,7 +59,7 @@ export const Answer = ({
                             ariaLabel="Show supporting content"
                             onClick={() => onSupportingContentClicked()}
                             disabled={!answer.data_points.length}
-                        />
+                        /> */}
                     </div>
                 </Stack>
             </Stack.Item>
