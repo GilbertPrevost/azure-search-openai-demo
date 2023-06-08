@@ -2,6 +2,7 @@
     /* flex: 1; */
     /* display: flex;
     flex-direction: column; */
+
     margin-top: 0px;
 }
 
@@ -9,7 +10,6 @@
     flex: 1;
     display: flex;
     height: 100%;
-    background-color: white;
 }
 
 .chatContainer {
@@ -18,6 +18,26 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 85vh;
+    background-color: white;
+}
+
+.chatContainer1 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 65vh;
+    border: 0.5px solid rgb(196, 189, 189);
+    background-color: white;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 15%;
+    border-radius: 10px;
 }
 
 .headDialog {
@@ -27,11 +47,29 @@
     background-color: #1569c7;
     margin-bottom: 3px;
 }
-
-.headDialog1 {
+.headKnowleadgebase {
+    height: 55px;
+    width: 22%;
+    border-bottom: 1px solid #cbd5e0;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: #2b6cb0;
+    margin-bottom: 3px;
+    margin-right: 10px;
+}
+.headcitation {
+    height: 75px;
+    width: 22%;
+    border-bottom: 1px solid #cbd5e0;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: #2b6cb0;
+    margin-bottom: 3px;
+    margin-left: 10px;
+}
+/* .headDialog1 {
     height: 75px;
     width: 100%;
-
     max-width: 1028px;
     border-bottom: 1px solid #cbd5e0;
     padding-top: 1px;
@@ -44,12 +82,40 @@
     margin-left: 2px;
     padding-left: 3px;
     color: white;
-    align-items: top;
 }
 
 .DialogFont {
     font-size: large;
     font-weight: 600;
+} */
+
+.headDialog1 {
+    height: 55px;
+    width: 100%;
+    max-width: 1028px;
+    border-bottom: 1px solid #cbd5e0;
+    padding-top: 5px;
+    padding-bottom: 1px;
+    background-color: #2b6cb0;
+    margin-bottom: 3px;
+}
+
+.DialogTest {
+    display: flex; /* Ensures the text elements are aligned horizontally */
+    align-items: center; /* Vertically center the text within the nav element */
+    margin-left: 2px;
+    padding-left: 3px;
+    color: white;
+}
+
+.DialogFont {
+    font-size: large;
+    font-weight: 600;
+    margin-right: 5px; /* Adjust the margin as needed */
+}
+
+.DialogText {
+    margin: 0; /* Reset the default margin */
 }
 
 .footer {
@@ -63,7 +129,7 @@
     width: 100%;
     /* height: 30px; */
     margin: auto;
-    /* padding: 0.5rem; */
+    padding: 0.5rem;
     text-align: center;
     background-color: #2b6cb0;
     color: #fff;
@@ -154,7 +220,7 @@
     /* padding: 12px 24px 24px; */
     padding: 1px 23px 18px 22px;
     width: 100%;
-    background: #f2f2f2;
+
     align-self: center;
     align-items: center;
 }
@@ -191,6 +257,7 @@
     display: flex;
     justify-content: left;
     align-items: left;
+
     flex-direction: column;
     width: 100%;
 }
@@ -203,6 +270,8 @@
     border-radius: 0.375rem;
     background-color: #2b6cb0;
 
+    padding-top: 5px;
+    padding-bottom: 5px;
     vertical-align: middle;
     position: fixed;
     bottom: 0;
@@ -228,4 +297,90 @@
     font-size: 1.125rem;
     font-weight: 600;
     color: #fff;
+}
+.answerRatings {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 250px;
+}
+.Ratingsicon {
+    content: "\f005";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+/* .Ratingsicon::before {
+    content: "\f005";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+} */
+.Ratingsbutton {
+    box-shadow: 0 0 0px 0px rgba(8 47 73);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 0.375rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.25rem;
+    padding-left: 0.2rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    background-color: #2b6cb0;
+}
+
+.Ratingsbutton.active {
+    background-color: rgba(8 47 73);
+}
+.Ratingsbutton:hover {
+    color: #ffcc00;
+    background-color: #60a5dd;
+}
+
+.citationbutton {
+    margin-bottom: 0.25rem;
+    margin-left: 10px;
+    padding: 0.5rem 0.5rem 0.25rem;
+    font-weight: bold;
+    border-radius: 0.375rem;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 2px 2px rgba(8 47 73);
+    color: #fff;
+    background-color: #2b6cb0;
+}
+
+.citationbutton:focus {
+    ring: 2px;
+    ring-color: #60a5dd;
+    ring-opacity: 0.5;
+}
+
+.citationbutton.active {
+    background-color: rgba(8 47 73);
+}
+
+.citationbutton:hover {
+    background-color: #60a5dd;
+}
+
+.metadatalist {
+    height: 2rem; /* You may adjust the value as needed */
+    border-bottom-width: 1px;
+    border-bottom-color: #d2d6dc; /* Replace with the actual color value */
+    padding-top: 0.25rem; /* You may adjust the value as needed */
+    padding-bottom: 0.25rem; /* You may adjust the value as needed */
+    background-color: #2b6cb0; /* Replace with the actual color value */
+    margin-top: 0.75rem; /* You may adjust the value as needed */
+}
+.navmetadatalist {
+    margin-left: 0.25rem; /* You may adjust the value as needed */
+    padding-left: 0.75rem; /* You may adjust the value as needed */
+}
+
+.fontmetadata {
+    font-size: 1rem; /* You may adjust the value as needed */
+    font-weight: 600; /* You may adjust the value as needed */
+    margin-bottom: 0.75rem; /* You may adjust the value as needed */
+    color: #ffffff; /* Replace with the actual color value */
 }

@@ -4,3 +4,24 @@
     padding-top: 12px;
     padding-bottom: 12px;
 }
+.headcitation {
+    height: 55px;
+    width: 22%;
+    border-bottom: 1px solid #cbd5e0;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: #2b6cb0;
+    margin-bottom: 3px;
+    margin-left: 30px;
+}
+.citationTest {
+    margin-left: 2px;
+    padding-left: 3px;
+    color: white;
+    align-items: top;
+}
+
+.citationFont {
+    font-size: large;
+    font-weight: 600;
+}

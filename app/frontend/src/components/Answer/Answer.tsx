@@ -36,15 +36,13 @@ export const Answer = ({
             <Stack.Item>
                 <Stack horizontal horizontalAlign="space-between">
                     {/* <AnswerIcon /> */}
-                    <div>
-                    <img
-                          src="/Wall-E.png"
-                          alt="AI"
-                          width="40"
-                          height="40"
-                          className={styles.boticon }
-                        />
-                        {/* <IconButton
+                </Stack>
+            </Stack.Item>
+
+            <Stack.Item grow>
+                <div>
+                    <img src="/Wall-E.png" alt="AI" width="40" height="40" className={styles.boticon} />
+                    {/* <IconButton
                             style={{ color: "black" }}
                             iconProps={{ iconName: "Lightbulb" }}
                             title="Show thought process"
@@ -60,15 +58,15 @@ export const Answer = ({
                             onClick={() => onSupportingContentClicked()}
                             disabled={!answer.data_points.length}
                         /> */}
-                    </div>
-                </Stack>
+                </div>
+                <div className={styles.userName}>
+                    <span className={styles.userfont}>Eve</span>
+                    <br />
+                    <div className={styles.answerText} dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}></div>
+                </div>
             </Stack.Item>
 
-            <Stack.Item grow>
-                <div className={styles.answerText} dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}></div>
-            </Stack.Item>
-
-            {!!parsedAnswer.citations.length && (
+            {/* {!!parsedAnswer.citations.length && (
                 <Stack.Item>
                     <Stack horizontal wrap tokens={{ childrenGap: 5 }}>
                         <span className={styles.citationLearnMore}>Citations:</span>
@@ -82,7 +80,7 @@ export const Answer = ({
                         })}
                     </Stack>
                 </Stack.Item>
-            )}
+            )} */}
 
             {!!parsedAnswer.followupQuestions.length && showFollowupQuestions && onFollowupQuestionClicked && (
                 <Stack.Item>

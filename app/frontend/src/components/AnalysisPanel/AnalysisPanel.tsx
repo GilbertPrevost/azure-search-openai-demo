@@ -26,32 +26,37 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, citationHeigh
     const sanitizedThoughts = DOMPurify.sanitize(answer.thoughts!);
 
     return (
-        <Pivot
-            className={className}
-            selectedKey={activeTab}
-            onLinkClick={pivotItem => pivotItem && onActiveTabChanged(pivotItem.props.itemKey! as AnalysisPanelTabs)}
-        >
-            <PivotItem
-                itemKey={AnalysisPanelTabs.ThoughtProcessTab}
-                headerText="Thought process"
-                headerButtonProps={isDisabledThoughtProcessTab ? pivotItemDisabledStyle : undefined}
+        <div className={styles.headcitation}>
+            <nav className={styles.citationTest}>
+                <h2 className={styles.citationFont}>Citation</h2>
+            </nav>
+            <Pivot
+                className={className}
+                selectedKey={activeTab}
+                onLinkClick={pivotItem => pivotItem && onActiveTabChanged(pivotItem.props.itemKey! as AnalysisPanelTabs)}
             >
-                <div className={styles.thoughtProcess} dangerouslySetInnerHTML={{ __html: sanitizedThoughts }}></div>
-            </PivotItem>
-            <PivotItem
-                itemKey={AnalysisPanelTabs.SupportingContentTab}
-                headerText="Supporting content"
-                headerButtonProps={isDisabledSupportingContentTab ? pivotItemDisabledStyle : undefined}
-            >
-                <SupportingContent supportingContent={answer.data_points} />
-            </PivotItem>
-            <PivotItem
-                itemKey={AnalysisPanelTabs.CitationTab}
-                headerText="Citation"
-                headerButtonProps={isDisabledCitationTab ? pivotItemDisabledStyle : undefined}
-            >
-                <iframe title="Citation" src={activeCitation} width="100%" height={citationHeight} />
-            </PivotItem>
-        </Pivot>
+                {/* <PivotItem
+                    itemKey={AnalysisPanelTabs.ThoughtProcessTab}
+                    headerText="Thought process"
+                    headerButtonProps={isDisabledThoughtProcessTab ? pivotItemDisabledStyle : undefined}
+                >
+                    <div className={styles.thoughtProcess} dangerouslySetInnerHTML={{ __html: sanitizedThoughts }}></div>
+                </PivotItem> */}
+                <PivotItem
+                    itemKey={AnalysisPanelTabs.SupportingContentTab}
+                    headerText="Citation" //Supporting content
+                    headerButtonProps={isDisabledSupportingContentTab ? pivotItemDisabledStyle : undefined}
+                >
+                    <SupportingContent supportingContent={answer.data_points} />
+                </PivotItem>
+                {/* <PivotItem
+                    itemKey={AnalysisPanelTabs.CitationTab}
+                    headerText="Citation"
+                    headerButtonProps={isDisabledCitationTab ? pivotItemDisabledStyle : undefined}
+                >
+                    <iframe title="Citation" src={activeCitation} width="100%" height={citationHeight} />
+                </PivotItem> */}
+            </Pivot>
+        </div>
     );
 };
