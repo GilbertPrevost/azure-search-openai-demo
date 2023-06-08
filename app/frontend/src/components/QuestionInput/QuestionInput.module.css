@@ -90,3 +90,52 @@
     height: 1.2em;
     fill: currentColor;
 }
+
+.endMEssage1 {
+    justify-content: center;
+    padding-top: 0.5rem;
+}
+
+.textred {
+    color: #EF4444; /* Example color value for red-500 */
+  }
+
+.endMEssage2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+.endMEssage3 {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+  }
+  
+  .endMEssage4 {
+    background-color: #1c3d5a;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.25rem;
+    margin-right: 0.25rem;
+  }
+
+  .endMEssage5 {
+    background-color: #1c3d5a;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.25rem;
+  }

@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton } from "@fluentui/react";
 import { SparkleFilled } from "@fluentui/react-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faTimes } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Chat.module.css";
 
 import { chatApi, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
@@ -12,6 +13,7 @@ import { UserChatMessage } from "../../components/UserChatMessage";
 import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
 import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
+import MetadataList from "../../components/MetaDataList/metadatalist";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -72,7 +74,11 @@ const Chat = () => {
         setActiveAnalysisPanelTab(undefined);
         setAnswers([]);
     };
+    const [selectedRootObject, setSelectedRootObject] = useState<string>("32d85331-e25e-4f87-acf7-c67ada71b788");
 
+      setSelectedRootObject("32d85331-e25e-4f87-acf7-c67ada71b788");
+
+    const [selectedRootLabel, setSelectedRootLabel] = useState<string>("Pedigree Manuals");
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
 
     const onPromptTemplateChange = (_ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
@@ -132,64 +138,104 @@ const Chat = () => {
             </div>
 
             <div className={styles.chatRoot}>
+                <div className={styles.headKnowleadgebase}>
+                    <nav className={styles.DialogTest}>
+                        <h2 className={styles.DialogFont}>Knowledgebase</h2>
+                    </nav>
+                    <div className={styles.metadatalist}>
+                        <div className={styles.navmetadatalist}>
+                            <div className={styles.fontmetadata}>{`Metadata: ${selectedRootLabel}`}</div>
+                        </div>
+                    </div>
+                    <MetadataList rootObjectName={selectedRootObject} />
+                </div>
                 <div className={styles.chatContainer}>
                     {/* <div className=""> */}
-                    <div className={styles.headDialog1}>
+                    {/* <div className={styles.headDialog1}>
                         <nav className={styles.DialogTest}>
                             <h2 className={styles.DialogFont}>Dialog</h2>Hi, I am Eve. Your AI Assitant.
                         </nav>
+                    </div> */}
+                    <div className={styles.headDialog1}>
+                        <div className={styles.DialogTest}>
+                            <div className={styles.DialogFont}>Dialog</div>
+                        </div>
+                        <div className={styles.DialogTest}>
+                            <div className={styles.DialogText}>Hi, I am Eve. Your AI Assistant.</div>
+                        </div>
                     </div>
                     {/* </div> */}
-                    {!lastQuestionRef.current ? (
-                        <div className={styles.chatEmptyState}>
-                            <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
-                            <ExampleList onExampleClicked={onExampleClicked} />
-                        </div>
-                    ) : (
-                        <div className={styles.chatMessageStream}>
-                            {answers.map((answer, index) => (
-                                <div key={index}>
-                                    <UserChatMessage message={answer[0]} />
-                                    <div className={styles.chatMessageGpt}>
-                                        <Answer
-                                            key={index}
-                                            answer={answer[1]}
-                                            isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
-                                            onCitationClicked={c => onShowCitation(c, index)}
-                                            onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
-                                            onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                            onFollowupQuestionClicked={q => makeApiRequest(q)}
-                                            showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                            {isLoading && (
-                                <>
-                                    <UserChatMessage message={lastQuestionRef.current} />
-                                    <div className={styles.chatMessageGptMinWidth}>
-                                        <AnswerLoading />
-                                    </div>
-                                </>
-                            )}
-                            {error ? (
-                                <>
-                                    <UserChatMessage message={lastQuestionRef.current} />
-                                    <div className={styles.chatMessageGptMinWidth}>
-                                        <AnswerError error={error.toString()} onRetry={() => makeApiRequest(lastQuestionRef.current)} />
-                                    </div>
-                                </>
-                            ) : null}
-                            <div ref={chatMessageStreamEnd} />
-                        </div>
-                    )}
 
+                    <div className={styles.chatContainer1}>
+                        {!lastQuestionRef.current ? (
+                            <div className={styles.chatEmptyState}>
+                                <img src="/Tu Logo.png" aria-label="Chat logo" height="120" />
+                                {/* <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" /> */}
+                                <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
+                                <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
+                                <ExampleList onExampleClicked={onExampleClicked} />
+                            </div>
+                        ) : (
+                            <div className={styles.chatMessageStream}>
+                                {answers.map((answer, index) => (
+                                    <div key={index}>
+                                        <UserChatMessage message={answer[0]} />
+                                        <div className={styles.chatMessageGpt}>
+                                            <Answer
+                                                key={index}
+                                                answer={answer[1]}
+                                                isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
+                                                onCitationClicked={c => onShowCitation(c, index)}
+                                                onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
+                                                onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
+                                                onFollowupQuestionClicked={q => makeApiRequest(q)}
+                                                showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
+                                            />
+                                        </div>
+                                        <div className={styles.answerRatings}>
+                                            Satisfaction Rating&nbsp;
+                                            <button onClick={() => true} className={styles.Ratingsbutton}>
+                                                <FontAwesomeIcon icon={faStar} />
+                                            </button>
+                                            <button className={styles.citationbutton} onClick={() => onShowCitation("", index)}>
+                                                {"Show Citations"}
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                                {isLoading && (
+                                    <>
+                                        <UserChatMessage message={lastQuestionRef.current} />
+                                        <div className={styles.chatMessageGptMinWidth}>
+                                            <AnswerLoading />
+                                        </div>
+                                        {/* <div className={styles.answerRatings}>
+                                            Satisfaction Rating&nbsp;
+                                            <button onClick={() => true} className={styles.Ratingsbutton}>
+                                                <i className={styles.Ratingsicon} aria-hidden="true"></i>
+                                            </button>
+                                            <button className={styles.citationbutton} onClick={() => ""}>
+                                                {"Show Citations"}
+                                            </button>
+                                        </div> */}
+                                    </>
+                                )}
+                                {error ? (
+                                    <>
+                                        <UserChatMessage message={lastQuestionRef.current} />
+                                        <div className={styles.chatMessageGptMinWidth}>
+                                            <AnswerError error={error.toString()} onRetry={() => makeApiRequest(lastQuestionRef.current)} />
+                                        </div>
+                                    </>
+                                ) : null}
+                                <div ref={chatMessageStreamEnd} />
+                            </div>
+                        )}
+                    </div>
                     <div className={styles.center100}>
                         <div className={styles.questioncenter100}>
                             <nav className={styles.navquestioncenter100}>
-                                <h2 className={styles.headquestioncenter100}>Question</h2>
+                                <div className={styles.headquestioncenter100}>Question</div>
                             </nav>
                         </div>
                     </div>
@@ -200,15 +246,16 @@ const Chat = () => {
                             placeholder={isLoading ? "Waiting for response..." : "Type your questions here."}
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
-                    
+                            clearChat={clearChat}
                         />
                     </div>
                 </div>
+
                 <div className={styles.footer}>
-                    <p>© 2023 TechUnity, Inc. All Rights Reserved.</p>
+                    <div>© 2023 TechUnity, Inc. All Rights Reserved.</div>
                 </div>
 
-                {answers.length > 0 && activeAnalysisPanelTab && (
+                {activeAnalysisPanelTab && (
                     <AnalysisPanel
                         className={styles.chatAnalysisPanel}
                         activeCitation={activeCitation}
@@ -216,6 +263,22 @@ const Chat = () => {
                         citationHeight="810px"
                         answer={answers[selectedAnswer][1]}
                         activeTab={activeAnalysisPanelTab}
+                    />
+                )}
+                {activeAnalysisPanelTab == undefined && (
+                    <AnalysisPanel
+                        className={styles.chatAnalysisPanel}
+                        activeCitation={activeCitation}
+                        onActiveTabChanged={x => onToggleTab(x, selectedAnswer)}
+                        citationHeight="810px"
+                        activeTab={AnalysisPanelTabs.ThoughtProcessTab}
+                        answer={{
+                            answer: "",
+                            thoughts: null,
+                            data_points: [],
+                            error: undefined
+                        }} // answer={answers[selectedAnswer][1]}
+                        // activeTab={activeAnalysisPanelTab}
                     />
                 )}
 

@@ -20,7 +20,7 @@ const OneShot = () => {
     const [useSemanticRanker, setUseSemanticRanker] = useState<boolean>(true);
     const [useSemanticCaptions, setUseSemanticCaptions] = useState<boolean>(false);
     const [excludeCategory, setExcludeCategory] = useState<string>("");
-
+    const[clearChat,setclearChat] = useState<unknown>();
     const lastQuestionRef = useRef<string>("");
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -139,6 +139,7 @@ const OneShot = () => {
                         placeholder="Example: Does my plan cover annual eye exams?"
                         disabled={isLoading}
                         onSend={question => makeApiRequest(question)}
+                        clearChat={() => setclearChat}
                     />
                 </div>
             </div>
