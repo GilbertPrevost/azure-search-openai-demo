@@ -309,11 +309,7 @@
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
 }
-/* .Ratingsicon::before {
-    content: "\f005";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-} */
+
 .Ratingsbutton {
     box-shadow: 0 0 0px 0px rgba(8 47 73);
     color: #fff;

@@ -1,0 +1,17 @@
+.metadate1 {
+    padding-left: 1rem; /* Equivalent to pl-4 */
+    padding-bottom: 1rem; /* Equivalent to pb-4 */
+    background-color: #FFFFFF; /* Equivalent to bg-white */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); /* Equivalent to shadow-md */
+    border-radius: 0.375rem; /* Equivalent to rounded-md */
+    font-size: 0.875rem; /* Equivalent to text-sm */
+  }
+
+  .mylist {
+    list-style-type: disc; /* Equivalent to list-disc */
+    padding-left: 1.5rem; /* Adjust the left padding as needed */
+  }
+
+  .fontbold {
+    font-weight: bold; /* Equivalent to font-bold */
+  }

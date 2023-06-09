@@ -22,6 +22,7 @@ const OneShot = () => {
     const [excludeCategory, setExcludeCategory] = useState<string>("");
     const[clearChat,setclearChat] = useState<unknown>();
     const lastQuestionRef = useRef<string>("");
+    const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<unknown>();
@@ -140,6 +141,8 @@ const OneShot = () => {
                         disabled={isLoading}
                         onSend={question => makeApiRequest(question)}
                         clearChat={() => setclearChat}
+                        answers={answers}
+                        selectedRootLabel=""
                     />
                 </div>
             </div>

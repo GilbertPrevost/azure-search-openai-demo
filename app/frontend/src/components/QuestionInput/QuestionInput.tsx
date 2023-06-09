@@ -3,6 +3,8 @@ import { Stack, TextField } from "@fluentui/react";
 import { Send28Filled } from "@fluentui/react-icons";
 import Modal from "react-modal";
 import styles from "./QuestionInput.module.css";
+import PdfGenerator from "../../components/PdfGenerators/PdfGenerators";
+import { AskResponse } from "../../api";
 
 interface Props {
     onSend: (question: string) => void;
@@ -10,13 +12,48 @@ interface Props {
     placeholder?: string;
     clearOnSend?: boolean;
     clearChat: () => void;
+    answers:[user: string, response: AskResponse][];
+    selectedRootLabel:string;
 }
 
-export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, clearChat }: Props) => {
+export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, clearChat, answers ,selectedRootLabel}: Props) => {
     const [question, setQuestion] = useState<string>("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [email, setEmail] = useState("");
     const [isValidEmail, setIsValidEmail] = useState(true);
+
+    const [StartTime, setStartTime] = useState<string>("");
+    const [EndTime, setEndTime] = useState<string>("");
+    const [sessionTime, setSessionTime] = useState(0);
+    const [ratings1, setRatings1] = useState<string>("");
+
+    const formatDateTime = () => {
+        const currentDateTime = new Date();
+        const formattedDate = currentDateTime.toLocaleDateString();
+        const formattedTime = currentDateTime.toLocaleTimeString();
+        return `${formattedDate} ${formattedTime}`;  
+      };
+
+      const formatTime = (time: number) => {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const seconds = time % 60;
+    
+        return `${hours.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      };
+
+      const arrayBufferToBuffer = (ab: ArrayBuffer) => {
+        let buffer = new Buffer(ab.byteLength);
+        let view = new Uint8Array(ab);
+        for (let i = 0; i < buffer.length; ++i) {
+          buffer[i] = view[i];
+        }
+        return buffer;
+      };
+
+      
     const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newEmail = event.target.value;
         setEmail(newEmail);
@@ -37,6 +74,55 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, clea
             setQuestion("");
         }
     };
+
+
+    const ChatSubmitWrapper = async (email: string) => {
+   
+
+        let EndTimeSession = formatDateTime();
+        setEndTime(EndTimeSession);
+    
+           debugger
+    
+        const startTime = new Date(StartTime);
+        const endTime = new Date(EndTimeSession);
+    
+        const timeDifference = endTime.getTime() - startTime.getTime();
+    
+        
+        try {
+          const SessionTimer = formatTime(sessionTime);
+       //   const messageTimer = [];
+    
+        //   for (let i = 0; i < messages.length; i++) {
+    
+        //     const messageData = messages[i].msgDateTime;
+        //     messageTimer.push(messageData);
+          
+        //   }
+    
+        //  const pdfData = await PdfGenerator(history,selectedRootLabel,timeDifference,messageTimer);
+
+          const pdfData = await PdfGenerator(answers,selectedRootLabel,timeDifference);
+          debugger
+          const buffer = arrayBufferToBuffer(pdfData.pdfbuffer);
+    
+          const response = await fetch('/api/mail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ receiver: email, filename: pdfData.fileName, pdfData: pdfData.pdfbuffer.toString('base64') }),
+          });
+       
+          setModalIsOpen(false);
+        } catch (error) {
+          console.error("Failed to submit chat", error);
+        }
+    
+        //UpdateHistory(uuidv4(), JSON.stringify(history),ratings1);
+      //  setRatings1('');
+        // handleReset();
+        clearChat();
+      };
 
     const onEnterPress = (ev: React.KeyboardEvent<Element>) => {
         if (ev.key === "Enter" && !ev.shiftKey) {
@@ -129,7 +215,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, clea
                         <div className={styles.endMEssage3}>
                             <button
                                 // onClick={ChatSubmitWrapper}
-                                // onClick={() => ChatSubmitWrapper(email)}
+                                onClick={() => ChatSubmitWrapper(email)}
                                 className={styles.endMEssage4}
                             >
                                 End: With Transcript

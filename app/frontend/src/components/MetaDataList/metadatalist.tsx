@@ -1,5 +1,8 @@
+import { Stylesheet } from "@fluentui/react";
 import React, { useEffect, useState } from "react";
 // import LoadSpinner from '@/components/ui/LoadingSpinner';
+import styles from "./metadatalist.module.css";
+
 
 interface MetadataItem {
     label: string;
@@ -39,23 +42,42 @@ const MetadataList: React.FC<MetadataListProps> = ({ rootObjectName }) => {
         const fetchData = async () => {
             setIsLoading(true); // Set loading state to true when starting fetch
             try {
-                const response = await fetch("http://54.172.137.151:81/api/FileUpload/GetFile", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ uuid: rootObjectName })
-                });
+                // const response = await fetch("http://54.172.137.151:81/api/FileUpload/GetFile", {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json"
+                //     },
+                //     body: JSON.stringify({ uuid: rootObjectName })
+                // });
 
-                if (!response.ok) {
-                    console.error("Failed to fetch data");
-                    return;
-                }
+                // if (!response.ok) {
+                //     console.error("Failed to fetch data");
+                //     return;
+                // }
 
-                const data = await response.json();
+                // const data = await response.json();
 
-                if (data && data.metaData) {
-                    const parsedMetaData = JSON.parse(data.metaData);
+                   
+
+                // if (data && data.metaData) {
+                //     const parsedMetaData = JSON.parse(data.metaData);
+                //     const parsedMetaDataKey = Object.keys(parsedMetaData)[0];
+                //     const metadata = parsedMetaData[parsedMetaDataKey]?.metadata;
+
+                //     if (metadata) {
+                //         setJsonData({
+                //             [rootObjectName]: {
+                //                 metadata: metadata
+                //             }
+                //         });
+                //         setMetadata(metadata);
+                //     }
+                // } else {
+                //     console.error("Invalid data returned from API");
+                // }
+
+              
+                    const parsedMetaData = JSON.parse("{\"20230524_225901_24. Jobs In OneView.pdf\": {\"metadata\": [{\"label\": \"TotalWordsvalue\", \"value\": \"3332\"}, {\"label\": \"UniqueWordsvalue\", \"value\": \"688\"}, {\"label\": \"Nouns\", \"value\": \"1176\"}, {\"label\": \"Verbs\", \"value\": \"493\"}, {\"label\": \"Pronouns\", \"value\": \"119\"}, {\"label\": \"MostCommonWords\", \"value\": {\"valueList\": [{\"label\": \"the\", \"value\": \"253\"}, {\"label\": \"to\", \"value\": \"126\"}, {\"label\": \"job\", \"value\": \"88\"}, {\"label\": \"a\", \"value\": \"77\"}, {\"label\": \"in\", \"value\": \"70\"}, {\"label\": \"and\", \"value\": \"66\"}, {\"label\": \"of\", \"value\": \"61\"}, {\"label\": \"you\", \"value\": \"61\"}, {\"label\": \"Jobs\", \"value\": \"50\"}, {\"label\": \"will\", \"value\": \"49\"}]}}, {\"label\": \"AvgSentenceLength\", \"value\": \"19.8\"}, {\"label\": \"AvgWordLength\", \"value\": \"4.14\"}, {\"label\": \"StopWordsCount\", \"value\": \"1506\"}, {\"label\": \"StopWordsRatio\", \"value\": \"45.2%\"}]}}");
                     const parsedMetaDataKey = Object.keys(parsedMetaData)[0];
                     const metadata = parsedMetaData[parsedMetaDataKey]?.metadata;
 
@@ -67,9 +89,7 @@ const MetadataList: React.FC<MetadataListProps> = ({ rootObjectName }) => {
                         });
                         setMetadata(metadata);
                     }
-                } else {
-                    console.error("Invalid data returned from API");
-                }
+               
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -91,17 +111,17 @@ const MetadataList: React.FC<MetadataListProps> = ({ rootObjectName }) => {
 
     return (
 
-         <div>Values are getting</div>
-        // <div className="pl-4 pb-4 bg-white shadow-md rounded-md text-sm">
-        //     <ul className="list-disc list-inside">
-        //         {metadata.map((item, index) => (
-        //             <li key={index}>
-        //                 <span className="font-bold">{item.label}: </span>
-        //                 {typeof item.value === "string" ? item.value : /* renderValueList(item.value.valueList) */ ""}
-        //             </li>
-        //         ))}
-        //     </ul>
-        // </div>
+        //  <div>Values are getting</div>
+        <div className={styles.metadate1}>
+            <ul className={styles.mylist}>
+                {metadata.map((item, index) => (
+                    <li key={index}>
+                        <span className={styles.fontbold}>{item.label}: </span>
+                        {typeof item.value === "string" ? item.value : /* renderValueList(item.value.valueList) */ ""}
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 };
 

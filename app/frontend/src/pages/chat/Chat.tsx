@@ -14,6 +14,9 @@ import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel
 import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 import MetadataList from "../../components/MetaDataList/metadatalist";
+import DropList from "../../components/DropList/dropdownlist";
+import RatingComponent from "../../components/ratingmessage/ratingmessage";
+import PdfGenerator from "../../components/PdfGenerators/PdfGenerators";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -35,6 +38,8 @@ const Chat = () => {
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: AskResponse][]>([]);
+    const [history, setHistory] = useState<[string,string][]>([]);
+    const [singlehistory, setsingleHistory] = useState<[string,string] | undefined>();
 
     const makeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
@@ -60,6 +65,8 @@ const Chat = () => {
             };
             const result = await chatApi(request);
             setAnswers([...answers, [question, result]]);
+            setsingleHistory([question,result.answer]);
+           
         } catch (e) {
             setError(e);
         } finally {
@@ -74,11 +81,49 @@ const Chat = () => {
         setActiveAnalysisPanelTab(undefined);
         setAnswers([]);
     };
+
+    interface DropListItem {
+        id: number;
+        uuid: string;
+        label: string;
+      }
+
+    const items = [
+        // { id: 1, uuid: "2279b2a0-91af-4f93-ab64-106cbb91dcdd", label: "LinkedIn" },
+        // {
+        //   id: 2,
+        //   uuid: "a96da5f0-9dc8-4a80-8242-999bb519c6dd",
+        //   label: "Corporate Governance",
+        // },
+        {
+          id: 1,
+          uuid: "32d85331-e25e-4f87-acf7-c67ada71b788",
+          label: "Pedigree Manuals",
+        },
+        // {
+        //   id: 4,
+        //   uuid: "cb3a924a-5ec0-4453-bc09-0575e11b514e",
+        //   label: "d-Wise Blur User Manuals",
+        // },
+      ];
+
     const [selectedRootObject, setSelectedRootObject] = useState<string>("32d85331-e25e-4f87-acf7-c67ada71b788");
 
-      setSelectedRootObject("32d85331-e25e-4f87-acf7-c67ada71b788");
+     // setSelectedRootObject("32d85331-e25e-4f87-acf7-c67ada71b788");
 
     const [selectedRootLabel, setSelectedRootLabel] = useState<string>("Pedigree Manuals");
+
+    //SelectedUUID("2279b2a0-91af-4f93-ab64-106cbb91dcdd");
+   
+  
+    const handleDropListSelect = (selectedItem: DropListItem) => {
+      setSelectedRootObject(selectedItem.uuid);
+     // SelectedUUID(selectedItem.uuid);
+      setSelectedRootLabel(selectedItem.label);
+     // handleReset();
+      //handleLabelChange(selectedItem.label);
+    };
+
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
 
     const onPromptTemplateChange = (_ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
@@ -142,6 +187,13 @@ const Chat = () => {
                     <nav className={styles.DialogTest}>
                         <h2 className={styles.DialogFont}>Knowledgebase</h2>
                     </nav>
+                    <DropList
+                        items={items}
+                        storageKey="selectedKnowledgebase"
+                        onItemSelect={handleDropListSelect} 
+                        selectedLabel={"Pedigree Manuals"}              //  selectedLabel={selectedLabel}
+                     />
+              
                     <div className={styles.metadatalist}>
                         <div className={styles.navmetadatalist}>
                             <div className={styles.fontmetadata}>{`Metadata: ${selectedRootLabel}`}</div>
@@ -193,10 +245,13 @@ const Chat = () => {
                                             />
                                         </div>
                                         <div className={styles.answerRatings}>
-                                            Satisfaction Rating&nbsp;
-                                            <button onClick={() => true} className={styles.Ratingsbutton}>
-                                                <FontAwesomeIcon icon={faStar} />
-                                            </button>
+                                        <RatingComponent ratings={[]} handleRatings={function (rating: string[]): void {
+                                                throw new Error("Function not implemented.");
+                                            } } index={0} ratings2={[]} />
+                                        {/* handleRatings={handleRatings}
+                              ratings={ratings}
+                              index={(indexCT/2)-1}
+                              ratings2={ratings2} */}
                                             <button className={styles.citationbutton} onClick={() => onShowCitation("", index)}>
                                                 {"Show Citations"}
                                             </button>
@@ -247,6 +302,8 @@ const Chat = () => {
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
                             clearChat={clearChat}
+                            answers={answers}
+                            selectedRootLabel={selectedRootLabel}
                         />
                     </div>
                 </div>
